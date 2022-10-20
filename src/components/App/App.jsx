@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-
 class App extends Component {
   state = {
     images: [],
@@ -12,11 +11,22 @@ class App extends Component {
     isButtonVisible: false,
   };
 
+  componentDidUpdate(prevProp, prevState) {
+    const { images } = this.state;
+
+    if (images.length > 12)
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+  }
 
   fetchImages = (requestedImages, updatedPageNumber) => {
     this.setState({ isButtonVisible: false });
 
-    
+    const apiKey = "22716086-2fdd68696acd66b897a29f84e";
+    const url = `https://pixabay.com/api/?q=${requestedImages}&page=${updatedPageNumber}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
+
     if (requestedImages) {
       this.setState({ isLoaded: false, pageNumber: updatedPageNumber });
 

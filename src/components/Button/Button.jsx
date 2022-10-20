@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+
 class Button extends Component {
   handleOneMorePage = () => {
     const { loadMoreImages, pageNumber } = this.props;
