@@ -1,4 +1,16 @@
 import React, { Component } from "react";
+import axios from "axios";
+
+import Loader from "react-loader-spinner";
+import Notiflix from "notiflix";
+
+import Searchbar from "../Searchbar/Searchbar";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import Button from "../Button/Button";
+import Modal from "../Modal/Modal";
+
+import s from "./App.module.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends Component {
   state = {
