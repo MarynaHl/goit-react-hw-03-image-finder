@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import s from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
 
-import s from "./ImageGalleryItem.module.css";
-
-class ImageGalleryItem extends Component {
-  render() {
-    const { id, webformatURL, tags, handleOpenModal } = this.props;
-
-    return (
-      <li className={s.imageGalleryItem} onClick={() => handleOpenModal(id)}>
-        <img
-          className={s.imageGalleryItem__image}
-          src={webformatURL}
-          alt={tags}
-        />
-      </li>
-    );
-  }
+export default function ImageGalleryItem({ webformatURL, index, openModal }) {
+  return (
+    <li className={s.ImageGalleryItem}>
+      <img
+        className={s.ImageGalleryItem__image}
+        src={webformatURL}
+        onClick={() => openModal(index)}
+        alt=""
+      />
+    </li>
+  );
 }
 
-export default ImageGalleryItem;
+ImageGalleryItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
+};

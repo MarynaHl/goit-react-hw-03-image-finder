@@ -1,57 +1,46 @@
-import React, { Component } from "react";
+import { Component } from 'react';
+import s from './Searchbar.module.css';
+import PropTypes from 'prop-types';
 
-import s from "./Searchbar.module.css";
-
-class Searchbar extends Component {
+export default class Searchbar extends Component {
   state = {
-    requestedImages: "",
+    searchData: '',
   };
 
-  handleInputValue = (e) => {
-    const { value } = e.target;
-
-    this.setState({ requestedImages: value });
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
-  handleFetchImages = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
+    this.props.onSubmit(this.state.searchData);
+  };
 
-    const { requestedImages } = this.state;
-    const { fetchImages, resetImagesArray } = this.props;
-
-    resetImagesArray();
-
-    const resetedPageNumber = 1;
-
-    fetchImages(requestedImages, resetedPageNumber);
-
-    this.setState({ requestedImages: "" });
+  handleChange = evt => {
+    const { value } = evt.target;
+    this.setState({ searchData: value });
   };
 
   render() {
-    const { state, handleInputValue, handleFetchImages } = this;
-    const { requestedImages } = state;
+    const { handleChange, handleSubmit } = this;
 
     return (
-      <header className={s.searchbar}>
-        <form className={s.searchForm} onSubmit={handleFetchImages}>
-          <button type="submit" className={s.searchForm__button}>
-            <span className={s.searchForm__buttonLabel}>Search</span>
+      <header className={s.Searchbar}>
+        <form className={s.SearchForm} onSubmit={handleSubmit}>
+          <button type="submit" className={s.SearchForm__button}>
+            <span className={s.SearchForm__button__label}>Search</span>
           </button>
 
           <input
-            className={s.searchForm__input}
+            className={s.SearchForm__input}
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={requestedImages}
-            onChange={handleInputValue}
+            onChange={handleChange}
           />
         </form>
       </header>
     );
   }
 }
-
-export default Searchbar;
